@@ -129,7 +129,6 @@ addRole = () => {
     .then(options => {
       const params = [options.role, options.salary];
 
-      // grab dept from department table
       const roleSql = `SELECT desc_department, id FROM department`; 
 
       currentRole = db.query(roleSql, (err, data) => {
@@ -167,6 +166,71 @@ addRole = () => {
  });
 };
 
+addEmployee = () => {
+  inquirer.prompt([
+    {
+      type: 'input',
+      name: 'fistName',
+      message: "What is the employee's first name?",
+      validate: addFirst => {
+        if (addFirst) {
+            return true;
+        } else {
+            console.log('Please enter a first name');
+            return false;
+        }
+      }
+    },
+    {
+      type: 'input',
+      name: 'lastName',
+      message: "What is the employee's last name?",
+      validate: addLast => {
+        if (addLast) {
+            return true;
+        } else {
+            console.log('Please enter a last name');
+            return false;
+        }
+      }
+    }
+  ])
+    .then(options => {
+    const params = [options.fistName, options.lastName]
+
+    // grab roles from roles table
+    const roleSql = `SELECT roles.id, roles.title FROM roles`;
+  
+    db.query(roleSql, (err, data) => {
+      if (err) throw err; 
+      
+      const roles = data.map(({ id, title }) => ({ name: title, value: id }));
+
+      inquirer.prompt([
+            {
+              type: 'list',
+              name: 'role',
+              message: "What is the employee's role?",
+              choices: roles
+            }
+          ])
+            .then(roleChoice => {
+              const role = roleChoice.role;
+              params.push(role);
+
+                    const sql = `INSERT INTO employee (first_name, last_name, role_id)
+                    VALUES (?, ?, ?)`;
+
+                    db.query(sql, params, (err, result) => {
+                    if (err) throw err;
+                    console.log("Employee has been added!")
+
+                    displayEmployees();
+              });
+            });
+          });
+        });
+     };
 
 displayDepartments = () => {  
   console.log('---Departments--- \n')

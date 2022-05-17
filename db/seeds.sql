@@ -18,10 +18,10 @@ VALUES
 ('Director of Operations', 130000, 5);
 
 INSERT INTO employee
-    (first_name, last_name, role_id, manager_id)
+    (first_name, last_name, role_id)
 VALUES
-('Trey', 'Schmidt', 2, NULL),
-('Francis', 'Schmidt', 1, NULL),
-('John', 'Goodman', 3, NULL),
-('Fran', 'Drescher', 5, NULL),
-('Joe', 'Estevez', 4, NULL);
+('Trey', 'Schmidt', 2),
+('Francis', 'Schmidt', 1),
+('John', 'Goodman', 3),
+('Fran', 'Drescher', 5),
+('Joe', 'Estevez', 4);

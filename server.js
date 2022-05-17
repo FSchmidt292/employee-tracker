@@ -71,6 +71,35 @@ const promptUser = () => {
   };
 });
 };
+
+addDepartment = () => {
+  inquirer.prompt([
+    {
+      type: 'input', 
+      name: 'newDepartment',
+      message: "Add your department!",
+      validate: newDepartment => {
+        if (newDepartment) {
+            return true;
+        } else {
+            console.log('Enter your new department!');
+            return false;
+        }
+      }
+    }
+  ])
+    .then(options => {
+      const sql = `INSERT INTO department (desc_department)
+                   VALUES (?)`;
+      db.query(sql, options.newDepartment, (err, result) => {
+        if (err) throw err;
+        console.log('Added ' + options.newDepartment + " to departments!"); 
+
+        displayDepartments();
+    });
+  });
+};
+
 displayDepartments = () => {  
       console.log('---Departments--- \n')
       const sql = `SELECT * FROM department`;

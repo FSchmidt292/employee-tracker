@@ -2,7 +2,7 @@ INSERT INTO department
     (desc_department)
 VALUES
 ('IT'),
-('Quality Assurance')
+('Quality Assurance'),
 ('Customer Service'),
 ('Management'),
 ('Upper-management');

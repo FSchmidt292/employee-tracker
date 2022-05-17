@@ -17,7 +17,9 @@
   you'll also want to ensure you have mysql2 CLI installed.
 
   ### User Instructions
-  To use this product, you'll need to start by initializing the server. First, ensure that you are in the correct directory in your command line, then run the command 'mysql -u root -p' followed by your password for mysql. then, run 'source db/db.sql', followed by 'source db/schema.sql', followed by 'source db/seeds.sql'. If you have legacy information you can enter it into the seeds file which will populate any empty table, you can reuse these commands to repopulate your tables from the legacy information. You will need to update this file if you inted to re-run these tables often. After you initialize the database and seed it, then you will need to quit msysql, or open a new command line. After ensuring that you are in the correct directory, run 'npm start' and simply follow the prompts!
+  BEFORE RUNNING CLI, navigate to the file db/connection.js and make sure that your mysql user and password information is correct.
+  
+To use this product, you'll need to start by initializing the server. First, ensure that you are in the correct directory in your command line, then run the command 'mysql -u root -p' followed by your password for mysql. then, run 'source db/db.sql', followed by 'source db/schema.sql', followed by 'source db/seeds.sql'. If you have legacy information you can enter it into the seeds file which will populate any empty table, you can reuse these commands to repopulate your tables from the legacy information. You will need to update this file if you inted to re-run these tables often. After you initialize the database and seed it, then you will need to quit msysql, or open a new command line. After ensuring that you are in the correct directory, run 'npm start' and simply follow the prompts!
 
   ### DEMO
   

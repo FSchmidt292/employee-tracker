@@ -32,9 +32,6 @@ const promptUser = () => {
               'Add a new Role', 
               'Add a new Employee', 
               'Update an existing Employee', 
-              'Delete a Department', 
-              'Delete a Role', 
-              'Delete an Employee',
               'Exit'
 ]}
 
@@ -100,15 +97,94 @@ addDepartment = () => {
   });
 };
 
+addRole = () => {
+  inquirer.prompt([
+    {
+      type: 'input', 
+      name: 'role',
+      message: "Add a new Role!",
+      validate: addRole => {
+        if (addRole) {
+            return true;
+        } else {
+            console.log('Enter your new role!');
+            return false;
+        }
+      }
+    },
+    {
+      type: 'input', 
+      name: 'salary',
+      message: "What is the salary of this role?",
+      validate: addSalary => {
+        if (Number.isInteger(JSON.parse(addSalary))) {
+            return true;
+        } else {
+            console.log('Please enter the salary for this new role!');
+            return false;
+        }
+      }
+    }
+  ])
+    .then(options => {
+      const params = [options.role, options.salary];
+
+      // grab dept from department table
+      const roleSql = `SELECT desc_department, id FROM department`; 
+
+      currentRole = db.query(roleSql, (err, data) => {
+        if (err) throw err; 
+       const dept = data.map(({ name, id }) => ({ name: name, value: id }));
+       displayDepartInternal();
+
+       function delay(time) {
+        return new Promise(resolve => setTimeout(resolve, time));
+      }
+      
+      delay(1000).then(() => inquirer.prompt([
+        {
+          type: 'list', 
+          name: 'dept',
+          message: "What department is this role in?",
+          choices: dept
+        }
+        ]))
+          .then(deptChoice => {
+            const dept = deptChoice.dept;
+            params.push(dept);
+
+            const sql = `INSERT INTO roles (title, salary, department_id)
+                        VALUES (?, ?, ?)`;
+
+            db.query(sql, params, (err, result) => {
+              if (err) throw err;
+              console.log('Added to roles!'); 
+
+              displayRoles();
+       });
+     });
+   });
+ });
+};
+
+
 displayDepartments = () => {  
-      console.log('---Departments--- \n')
-      const sql = `SELECT * FROM department`;
-      db.query(sql, (err, rows) => {
-        if (err) throw err;
-        console.table(rows);
-        promptUser();
-        });
-      };
+  console.log('---Departments--- \n')
+  const sql = `SELECT * FROM department`;
+    db.query(sql, (err, rows) => {
+  if (err) throw err;
+  console.table(rows);
+  promptUser();
+  });
+};
+
+displayDepartInternal = () => {
+  const sql = `SELECT * FROM department`;
+  db.query(sql, (err, rows) => {
+    if (err) throw err;
+    console.table(rows);
+    });
+};
 
 displayRoles = () => {  
   console.log('---Roles--- \n')

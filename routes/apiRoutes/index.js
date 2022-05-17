@@ -1,11 +1,11 @@
 const express = require('express');
 
 const router = express.Router();
-
-const apiRoutes = require('./routes/apiRoutes');
+const app = express();
+const mysql = require('mysql2');
 
 router.use(require('./departmentRoutes'));
-router.use(require('./employeeRoutes'));
-router.use(require('./roleRoutes'));
+/*router.use(require('./employeeRoutes'));
+router.use(require('./roleRoutes'));*/
 
 module.exports = router;

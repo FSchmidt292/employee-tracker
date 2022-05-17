@@ -33,4 +33,8 @@ https://user-images.githubusercontent.com/97007117/168896837-2edba844-50f4-4fa7-
   If you have any questions, you can reach me at:
   - eMail: fjschmidt292@gmail.com
   - Github: github.com/FSchmidt292/
+<<<<<<< HEAD
   
+=======
+  
+>>>>>>> f6a51b306db2c5a4fd425105f10a61efbdbfc865

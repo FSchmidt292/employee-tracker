@@ -1,17 +1,19 @@
 const express = require('express');
-const db = require('./db/connection');
 const inquirer = require('inquirer')
 const res = require('express/lib/response');
-
+const db = require('./db/connection.js');
+const cTable = require('console.table');
 const PORT = process.env.PORT || 3001;
 const app = express();
+const mysql = require('mysql2');
+const apiRoutes = require('./routes/apiRoutes');
 
 // Express middleware
 app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // Use apiRoutes
-//app.use('/api', apiRoutes);
+app.use('/api', apiRoutes);
 
 // Default response for any other request (Not Found)
 app.use((req, res) => { 
@@ -43,31 +45,6 @@ const promptUser = () => {
     }
   })
 };
-
-
-displayDepartments = () => {
-  console.log('---Departments---')
-  const sql = `SELECT department.desc_department AS department FROM department;`
-  db.query(sql, (err, rows) => {
-    if (err) {
-      res.status(500).json({ error: err.message });
-      return;
-    }
-    res.json({ message: 'success',
-    data:rows
-    });
-  })
-}
-
-
-//for testing purposes before routing
-
-app.get('/', (req, res) => {
-  res.json({
-    message: 'hello world'
-
-  });
-});
 
 promptUser();
 

@@ -18,6 +18,7 @@ app.use((req, res) => {
   res.status(404).end();
 });
 //activate CLI prompts for user input
+
 const promptUser = () => {
   inquirer.prompt([
     {
@@ -25,17 +26,17 @@ const promptUser = () => {
     name: 'options',
     message: 'Please select one of the following options',
     choices: ['View all Departments',
-              'View all Roles',
-              'View all Employees',
-              'Add a new Department',
-              'Add a new Role',
-              'Add a new Employee',
-              'Update an existing Employee',
-              'Delete a Department',
-              'Delete a Role',
+              'View all Roles', 
+              'View all Employees', 
+              'Add a new Department', 
+              'Add a new Role', 
+              'Add a new Employee', 
+              'Update an existing Employee', 
+              'Delete a Department', 
+              'Delete a Role', 
               'Delete an Employee',
-              'Exit']
-    }
+              'Exit'
+]}
 
   ])
   .then((answers) => {
@@ -50,25 +51,24 @@ const promptUser = () => {
     if (options === 'View all Employees') {
       displayEmployees();
     }
-    if (options === "Add a new Department") {
+    if (options === 'Add a new Department') {
       addDepartment();
     }
 
-    if (options === "Add a new Role") {
+    if (options === 'Add a new Role') {
       addRole();
     }
 
-    if (options === "Add a new Employee") {
+    if (options === 'Add a new Employee') {
       addEmployee();
     }
 
-    if (options === "Update an existing Employee") {
+    if (options === 'Update an existing Employee') {
       updateEmployee();
     }
-
-    if (options === "Exit") {
-      connection.end()
-  }
+    if (options === 'Exit') {
+    db.end();
+  };
 });
 };
 displayDepartments = () => {  
@@ -105,10 +105,6 @@ displayEmployees = () => {
 
 promptUser();
 
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`)
-});
-
 //Start server after DB connection
 db.connect(err => {
   if (err) throw err;
@@ -117,6 +113,7 @@ db.connect(err => {
     console.log(`Server running on port ${PORT}`);
   });
 });
+
 // post to JSON
 
 //module.exports = router;

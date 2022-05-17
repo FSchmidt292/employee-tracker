@@ -30,8 +30,7 @@ const promptUser = () => {
               'View all Employees', 
               'Add a new Department', 
               'Add a new Role', 
-              'Add a new Employee', 
-              'Update an existing Employee', 
+              'Add a new Employee',  
               'Exit'
 ]}
 
